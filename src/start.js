@@ -6,6 +6,9 @@ import Welcome from "./components/welcome";
 import App from "./components/app";
 
 //styling
+import "bootstrap/dist/css/bootstrap.min.css";
+import "@kenshooui/react-multi-select/dist/style.css";
+
 import "normalize.css";
 import "./styles/styles.css";
 

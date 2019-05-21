@@ -21,24 +21,28 @@ export default class ChatPopUp extends React.Component {
         return (
             <div className="chatDisplay">
                 <div className="scrollingChat">
-                    {this.props.comments.map(comment => (
+                    {this.props.comments.map((comment, index, comments) => (
                         <div className="chatLine" key={comment.messageid}>
                             <div className="chatComment">{comment.comment}</div>
-                            <div className="chatPic">
-                                <div className="chatPic-wrapper">
-                                    <img src={comment.pic} />
-                                </div>
-                                <div className="chatPic-commenter">
-                                    <div>
-                                        <strong>{`-${comment.firstname} ${
-                                            comment.lastname[0]
-                                        }.`}</strong>
+                            {comments[index + 1] &&
+                            comments[index + 1].id ==
+                                comments[index].id ? null : (
+                                <div className="chatPic">
+                                    <div className="chatPic-wrapper">
+                                        <img src={comment.pic} />
                                     </div>
-                                    <div>
-                                        <em>{comment.formatted_time}</em>
+                                    <div className="chatPic-commenter">
+                                        <div>
+                                            <strong>{`-${comment.firstname} ${
+                                                comment.lastname[0]
+                                            }.`}</strong>
+                                        </div>
+                                        <div>
+                                            <em>{comment.formatted_time}</em>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            )}
                         </div>
                     ))}
                     <div

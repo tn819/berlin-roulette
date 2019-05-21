@@ -1,11 +1,11 @@
-#Social Network
+Be Forgotten Petition Project
 
-Features:
+http://beforgotten.herokuapp.com/
 
-1. React responsive front end
-2. Node/Express server backend
-3. Postgres database connection
-4. Redux store implemented for certain features
-
-```js
-```
+| Description             | Tech                                                  | Overview                                                                                                          |
+| ----------------------- | ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
+| Front-end               | Redux, React, ReactRouter, CSS, Animations, Keyframes | Dynamic page and templating structure                                                                             |
+| Back-end                | Node, Express, Express Router                         | Node server and routing set-up                                                                                    |
+| Database                | Postgres SQL, Redis                                   | Node server and routing set-up                                                                                    |
+| Scripting               | JS, jQuery                                            | touch and animation handling                                                                                      |
+| Authentication/Security | bcrypt, cookie-session, csurf                         | user log-in handled securely with bcrypt, common web security concerns addressed via csurf, cookies, other set-up |

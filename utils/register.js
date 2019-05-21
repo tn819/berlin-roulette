@@ -5,7 +5,7 @@ const validator = require("validator");
 // Create a schema
 const schema = new passwordValidator();
 
-// 8-16 characters, at least 1 uppercase and lowercase, has a digit, no spaces
+// 8-16 characters, no spaces
 schema
     .is()
     .min(6)

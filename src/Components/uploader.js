@@ -34,16 +34,7 @@ export default class Uploader extends React.Component {
                 contentLabel="Profile Pic Upload"
                 onRequestClose={this.props.hideModal}
                 ariaHideApp={false}
-                style={{
-                    content: {
-                        position: "absolute",
-                        top: "150px",
-                        margin: "0 auto",
-                        bottom: "150px",
-                        maxHeight: "400px",
-                        maxWidth: "400px"
-                    }
-                }}
+                className="modal"
             >
                 <div>
                     <form

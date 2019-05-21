@@ -1,6 +1,7 @@
 import React from "react";
 import FriendButton from "./friendbutton";
 import { Link } from "react-router-dom";
+import { socket } from "../socket";
 
 const FriendCard = props => (
     <div className="friend-card-wrapper">
@@ -13,9 +14,16 @@ const FriendCard = props => (
                 </div>
                 <div className="friend-card-details">
                     <FriendButton profileid={friend.id} />
-                    <div>
-                        <h4>{`${friend.firstname} ${friend.lastname}`}</h4>
-                    </div>
+
+                    <h4>{`${friend.firstname} ${friend.lastname}`}</h4>
+                    <button
+                        onClick={e => {
+                            e.preventDefault();
+                            socket.emit("getUserChat", friend.id);
+                        }}
+                    >
+                        Chat
+                    </button>
                 </div>
             </div>
         ))}

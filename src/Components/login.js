@@ -39,7 +39,7 @@ export default class Registration extends React.Component {
         const { displayErrors } = this.state;
         return (
             <div>
-                <h2>Log In</h2>
+                <h2 className="special">Log In</h2>
                 <form
                     onSubmit={this.handleSubmit}
                     noValidate
@@ -68,7 +68,11 @@ export default class Registration extends React.Component {
                         />
                         <br />
                     </label>
-                    <button>Submit</button>
+                    <div className="d-flex justify-content-center m-2">
+                        <button className="btn-l" type="submit">
+                            Submit
+                        </button>
+                    </div>
                     {displayErrors && (
                         <div>
                             <p>Invalid Login</p>

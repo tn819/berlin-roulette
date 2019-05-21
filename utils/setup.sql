@@ -1,5 +1,5 @@
 DROP TABLE IF EXISTS users;
-DROP TABLE IF EXISTS friendships;
+DROP TABLE IF EXISTS groups;
 DROP TABLE IF EXISTS messages;
 
 CREATE TABLE users (
@@ -9,22 +9,25 @@ CREATE TABLE users (
     email VARCHAR(255) UNIQUE NOT NULL,
     password TEXT NOT NULL,
     pic VARCHAR(255),
-    bio VARCHAR(500),
+    station VARCHAR(500),
+    latitude FLOAT,
+    longitude FLOAT,
+    availability DATE [],
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
-CREATE TABLE friendships (
+CREATE TABLE groups (
     id SERIAL PRIMARY KEY NOT NULL,
-    requester SERIAL NOT NULL references users(userid) ON DELETE CASCADE,
-    receiver SERIAL NOT NULL references users(userid) ON DELETE CASCADE,
-    accepted BOOLEAN NOT NULL default 'false'
+    station VARCHAR(500),
+    latitude FLOAT,
+    longitude FLOAT,
+    members INTEGER[] NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-
 );
 
 CREATE TABLE messages (
     id SERIAL PRIMARY KEY NOT NULL,
-    userid SERIAL NOT NULL references users(userid) ON DELETE CASCADE,
+    userid SERIAL NOT NULL references users(userid) on DELETE CASCADE,
     comment TEXT NOT NULL,
     receiver INTEGER DEFAULT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP

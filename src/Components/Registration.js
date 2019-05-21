@@ -46,7 +46,7 @@ export default class Registration extends React.Component {
         const { displayErrors } = this.state;
         return (
             <div>
-                <h2>Register!</h2>
+                <h2 className="special">Register!</h2>
                 <form
                     onSubmit={this.handleSubmit}
                     className={displayErrors ? "displayErrors" : ""}
@@ -97,7 +97,12 @@ export default class Registration extends React.Component {
                         />
                         <br />
                     </label>
-                    <button type="submit">Submit</button>
+                    <div className="d-flex justify-content-center m-2">
+                        <button className="btn-l" type="submit">
+                            Submit
+                        </button>
+                    </div>
+
                     <div>{displayErrors && <p>Form is not valid</p>}</div>
                 </form>
             </div>

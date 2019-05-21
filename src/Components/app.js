@@ -1,227 +1,136 @@
 import React from "react";
-import { BrowserRouter, Route, NavLink } from "react-router-dom";
+import { BrowserRouter, Route, NavLink, Redirect } from "react-router-dom";
 import axios from "../../utils/axios";
-import ProfilePic from "./profilepic";
-import Uploader from "./uploader";
-import Profile from "./profile";
-import OtherProfile from "./otherprofile";
-import BioEditor from "./bioeditor";
-import Friends from "./friends";
-import FriendCard from "./friendcard";
-import Chat from "./chat";
+import Search from "./station-search";
+import Match from "./match";
+import { updateUser, getUser } from "../action";
 import { connect } from "react-redux";
-import {
-    receiveFriends,
-    onlineUsers,
-    addFriend,
-    acceptFriend,
-    rejectFriend,
-    showChat
-} from "../action";
 
 class App extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {
-            showUpload: false
-        };
-        this.updatePic = this.updatePic.bind(this);
-        this.showModal = this.showModal.bind(this);
-        this.editBio = this.editBio.bind(this);
-        this.showChat = this.showChat.bind(this);
     }
 
     componentDidMount() {
-        this.props.dispatch(receiveFriends());
-        axios
-            .get("/user")
-            .then(({ data }) => {
-                console.log("initial user get for app page", data);
-                return this.setState({
-                    userid: Number(data.userid),
-                    email: data.email,
-                    firstname: data.firstname,
-                    lastname: data.lastname,
-                    bio: data.bio || null,
-                    pic: data.pic || "/default.jpg"
-                });
-            })
-            .catch(err => console.log(err));
-    }
-
-    showChat(e) {
-        e.preventDefault();
-        this.props.dispatch(showChat());
-    }
-
-    showModal(e) {
-        e.preventDefault();
-        this.setState({
-            showUpload: true
-        });
-    }
-
-    editBio(newBio) {
-        this.setState({
-            bio: newBio
-        });
-    }
-
-    updatePic(url) {
-        this.setState({
-            pic: url,
-            showUpload: false
-        });
+        this.props.dispatch(getUser());
     }
 
     render() {
-        if (
-            !this.state.userid ||
-            !this.props.friends ||
-            !this.props.onlineUsers
-        ) {
-            return (
-                <div>
-                    <div className="app-menu">
-                        <h1>The Hive</h1>
-                        <div className="app-menu-submenu">
-                            <a href="/logout">Log Out</a>
-                            <ProfilePic
-                                pic={this.state.pic}
-                                altname={`${this.state.firstname} ${
-                                    this.state.lastname
-                                }`}
-                                showModal={this.showModal}
-                                className="profile-pic"
-                            />
-                        </div>
-                    </div>
-                    <div className="content-wrapper">
-                        <img src="/loading.gif" />
-                    </div>
-                </div>
-            );
-        }
         return (
             <BrowserRouter>
-                <div>
-                    <div className="app-menu">
-                        <h1>The Hive</h1>
-                        <div className="app-menu-submenu">
-                            <NavLink exact to="/" activeClassName="is-active">
-                                My Profile
+                <div className="jumbotron-fluid h-100 justify-content-center align-items-center">
+                    <nav className="navbar sticky-top navbar-expand-sm nav-pills nav-fill navbar-light bg-light justify-content-center">
+                        <NavLink
+                            className="navbar-brand"
+                            activeClassName="active"
+                            activeStyle={{
+                                transform: "scale(1.2)",
+                                fontWeight: "bold"
+                            }}
+                            to="/"
+                        >
+                            <div className="roulette-icon">
+                                <img className="icon" src="/roulette.png" />
+                            </div>
+                        </NavLink>
+                        <button
+                            className="navbar-toggler"
+                            type="button"
+                            data-toggle="collapse"
+                            data-target="#navbarSupportedContent"
+                            aria-controls="navbarSupportedContent"
+                            aria-expanded="false"
+                            aria-label="Toggle navigation"
+                        >
+                            <span className="navbar-toggler-icon" />
+                        </button>
+                        <div className="collapse navbar-collapse">
+                            <NavLink
+                                className="nav-item"
+                                activeClassName="active"
+                                activeStyle={{
+                                    transform: "scale(1.2)",
+                                    fontWeight: "bold"
+                                }}
+                                to="/about"
+                            >
+                                <div className="nav-link">
+                                    <img
+                                        src="/open-iconic-master/png/person-6x.png"
+                                        className="icon"
+                                    />
+                                </div>
                             </NavLink>
-                            <NavLink to="/online" activeClassName="is-active">
-                                Online{" "}
-                                {this.props.onlineUsers && (
-                                    <span>
-                                        (
-                                        {
-                                            Object.keys(this.props.onlineUsers)
-                                                .length
-                                        }
-                                        )
-                                    </span>
-                                )}
+                            <NavLink
+                                className="nav-item"
+                                activeClassName="active"
+                                activeStyle={{
+                                    transform: "scale(1.2)",
+                                    fontWeight: "bold"
+                                }}
+                                to="/match"
+                            >
+                                <div>
+                                    <img
+                                        src="/open-iconic-master/png/people-6x.png"
+                                        className="icon"
+                                    />
+                                </div>
                             </NavLink>
-                            <NavLink to="/friends" activeClassName="is-active">
-                                Friends{" "}
-                                {this.props.friends.filter(
-                                    friend =>
-                                        !friend.requestAccepted &&
-                                        !friend.requestSender
-                                ).length > 0 && (
-                                    <span>
-                                        (
-                                        {
-                                            this.props.friends.filter(
-                                                friend =>
-                                                    !friend.requestAccepted &&
-                                                    !friend.requestSender
-                                            ).length
-                                        }
-                                        )
-                                    </span>
-                                )}
+                            <NavLink
+                                className="nav-item"
+                                activeClassName="active"
+                                activeStyle={{
+                                    transform: "scale(1.2)",
+                                    fontWeight: "bold"
+                                }}
+                                to="/people"
+                            >
+                                <div>
+                                    <img
+                                        src="/open-iconic-master/png/beaker-6x.png"
+                                        className="icon"
+                                    />
+                                </div>
                             </NavLink>
-                            <a href="/logout">Log Out</a>
-                            <ProfilePic
-                                pic={this.state.pic}
-                                altname={`${this.state.firstname} ${
-                                    this.state.lastname
-                                }`}
-                                showModal={this.showModal}
-                                className="profile-pic"
-                            />
+                            <NavLink
+                                className="nav-item"
+                                activeClassName="active"
+                                activeStyle={{
+                                    transform: "scale(1.2)",
+                                    fontWeight: "bold"
+                                }}
+                                to="/chat"
+                            >
+                                <div>
+                                    <img
+                                        src="/open-iconic-master/png/chat-6x.png"
+                                        className="icon"
+                                    />
+                                </div>
+                            </NavLink>
+                            <a className="nav-item" href="/logout">
+                                <img
+                                    src="/open-iconic-master/png/account-logout-6x.png"
+                                    className="icon"
+                                />
+                            </a>
                         </div>
-                    </div>
-                    {this.state.showUpload && (
-                        <Uploader
-                            updatePic={this.updatePic}
-                            showModal={this.state.showUpload}
-                            hideModal={() =>
-                                this.setState({ showUpload: false })
-                            }
-                        />
-                    )}
+                    </nav>
                     <div className="content-wrapper">
                         <Route
                             exact
                             path="/"
-                            render={() => (
-                                <Profile
-                                    fullname={`${this.state.firstname} ${
-                                        this.state.lastname
-                                    }`}
-                                    profilePic={
-                                        <ProfilePic
-                                            pic={this.state.pic}
-                                            altname={`${this.state.firstname} ${
-                                                this.state.lastname
-                                            }`}
-                                            showModal={this.showModal}
-                                        />
-                                    }
-                                    bioEditor={
-                                        <BioEditor
-                                            bio={this.state.bio}
-                                            editBio={this.editBio}
-                                        />
-                                    }
-                                />
-                            )}
+                            render={() =>
+                                this.props.isFilledOut ? (
+                                    <Redirect to="/match" />
+                                ) : (
+                                    <Search />
+                                )
+                            }
                         />
-                        <Route
-                            path="/user/:id"
-                            render={props => (
-                                <OtherProfile
-                                    key={props.match.url}
-                                    match={props.match}
-                                    history={props.history}
-                                />
-                            )}
-                        />
-                        <Route path="/friends" component={Friends} />
-                        <Route
-                            path="/online"
-                            render={() => (
-                                <FriendCard friends={this.props.onlineUsers} />
-                            )}
-                        />
-                        {this.props.showChat ? (
-                            <div className="chatHolder showChat">
-                                <Chat />
-                            </div>
-                        ) : (
-                            <div className="chatHolder">
-                                <div
-                                    className="chatLaunch"
-                                    onClick={this.showChat}
-                                >
-                                    <img src="/chat.png" />
-                                </div>
-                            </div>
-                        )}
+                        <Route path="/about" render={() => <Search />} />
+                        <Route path="/match" render={() => <Match />} />
                     </div>
                 </div>
             </BrowserRouter>
@@ -232,10 +141,8 @@ class App extends React.Component {
 const mapStateToProps = state => {
     console.log("mapStateToProps", state);
     return {
-        friends: state.friends,
-        onlineUsers: state.onlineUsers,
-        showChat: state.showChat,
-        chat: state.chat
+        station: state.station,
+        isFilledOut: state.isFilledOut
     };
 };
 
