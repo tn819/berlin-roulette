@@ -1,6 +1,5 @@
-Be Forgotten Petition Project
-
-http://beforgotten.herokuapp.com/
+Berlin roulette
+User preference and geo-location friend-matching app
 
 | Description             | Tech                                                  | Overview                                                                                                          |
 | ----------------------- | ----------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
