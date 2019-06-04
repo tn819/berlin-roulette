@@ -26,8 +26,7 @@ npm run dev
 requires ENV variables for:
 
 ```
-DATABASE_URL (postgres url), AWS_KEY, AWS_SECRET, s3Url (AWS bucket url)
-RACCOON_REDIS_URL (redis cloud instance url), RACCOON_REDIS_PORT (redis cloud port), RACCOON_REDIS_AUTH (redis cloud instance key)
+DATABASE_URL (postgres url), AWS_KEY, AWS_SECRET, s3Url (AWS bucket url), RACCOON_REDIS_URL (redis cloud instance url), RACCOON_REDIS_PORT (redis cloud port), RACCOON_REDIS_AUTH (redis cloud instance key)
 ```
 
 ## landing page
