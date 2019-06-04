@@ -11,20 +11,29 @@ User preference and geo-location friend-matching app
 
 ## build steps
 
+Requires Node, AWS account, Redis database connection
+
 ```
 npm install
+```
 
 concurrent dev script execution (webpack + node server):
-npm run dev
 
-requires ENV variables for DATABASE_URL (postgres url), AWS_KEY, AWS_SECRET, s3Url (AWS bucket url)
+```
+npm run dev
+```
+
+requires ENV variables for:
+
+```
+DATABASE_URL (postgres url), AWS_KEY, AWS_SECRET, s3Url (AWS bucket url)
 RACCOON_REDIS_URL (redis cloud instance url), RACCOON_REDIS_PORT (redis cloud port), RACCOON_REDIS_AUTH (redis cloud instance key)
 ```
 
 ## landing page
 
-friend requests, built-in pop up group live chat
-![alt text](https://raw.githubusercontent.com/tn819/berlin-roulette/master/public/landing-page.png)
+login to roulette
+![alt text](https://raw.githubusercontent.com/tn819/berlin-roulette/master/public/login.gif)
 
 ## form page
 

@@ -17,10 +17,10 @@ const Card = props => (
                     Only {props.distance} meters away!
                 </p>
                 <p className="list-group-item bg-success">
-                    {props.likes.map(like => `${like} `)}
+                    Likes: {props.likes.map(like => `${like} `)}
                 </p>
                 <p className="list-group-item bg-danger">
-                    {props.dislikes.map(like => `${like} `)}
+                    Dislikes: {props.dislikes.map(like => `${like} `)}
                 </p>
             </ul>
         </div>
